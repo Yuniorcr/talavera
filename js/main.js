@@ -5,6 +5,11 @@ const auth = getAuth();
 const alert = document.getElementById('alert');
 document.getElementById("signIn").addEventListener("click", (e) => {
     e.preventDefault();
+    alert.innerHTML = `<br><div class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>`;
     const email = document.getElementById("dni").value;
     const password = document.getElementById("numesa").value;
     signInWithEmailAndPassword(auth, email+"@gmail.com", password)

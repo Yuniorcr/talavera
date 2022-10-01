@@ -74,15 +74,7 @@ save.addEventListener("click", async (e) => {
                 votoP.value = "";
                 votoD.value = "";
                 document.getElementById("votoIMG").value = "";
-                setTimeout(() => {
-                  signOut(auth).then(() => {
-                    // Sign-out successful.
-                    window.location.href = "index.html";
-                  }).catch((error) => {
-                    // An error happened.
-                    window.location.href = "index.html";
-                  });
-                }, 2000);
+                verificar(auth.currentUser.uid);
             }
         }else{
             alert("Debe seleccionar una imagen");
@@ -149,6 +141,28 @@ async function Comprimir(img){
             },
         });
     })
+}
+
+async function verificar(uid) { 
+    const q = query(collection(db, "users"), where("uid", "==", uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+        if(doc.data().tipo == "admi"){
+            setTimeout(() => {
+              window.location.href = "home.html";
+            }, 1000);
+        }else{
+          setTimeout(() => {
+            signOut(auth).then(() => {
+              // Sign-out successful.
+              window.location.href = "index.html";
+            }).catch((error) => {
+              // An error happened.
+              window.location.href = "index.html";
+            });
+          }, 2000);
+        }
+    });
 }
 
 
